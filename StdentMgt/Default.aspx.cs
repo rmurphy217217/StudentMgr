@@ -12,21 +12,38 @@ namespace StdentMgt
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            SqlDataSource sqlDS = new SqlDataSource();
-            sqlDS.ConnectionString = "Data Source =.; Initial Catalog = StudentMgt; Integrated Security = True";
-            sqlDS.SelectCommand = "SELECT  Id,[Course Name] FROM [StudentMgt].[dbo].[Course]";
 
-
-            DropDownList1.DataSource = sqlDS;
-            DropDownList1.DataTextField = "Course Name";
-            DropDownList1.DataValueField = "Id";
-
-            DropDownList1.DataBind();
         }
 
-        protected void SqlDataSource1_Selecting(object sender, SqlDataSourceSelectingEventArgs e)
+
+
+
+        protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
         {
 
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                GridViewRow gvr = e.Row;
+                string abc = e.Row.Cells[0].Text.ToString();
+                gvr.Attributes.Add("OnClick", "javascript:location.href='Student.aspx?id=" + abc + "'");
+            }
+
+        
+    }
+
+        protected void GridView1_SelectedIndexChanged1(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Student.aspx");
         }
     }
 }
